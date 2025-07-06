@@ -94,7 +94,7 @@
                     <h3 class="text-lg font-semibold text-cardiff-red">${d.title}</h3>
                     <div class="mt-4 hidden text-sm text-gray-600 program-details">
                       <p>${d.description||"No description available."}</p>
-                      <button class="bookmark-button text-cardiff-red text-sm font-medium mt-2 hover:border-cardiff-red flex items-center gap-2" data-bookmark-program='${JSON.stringify(d)}'>
+                      <button class="bookmark-button text-cardiff-red text-sm font-medium mt-4 hover:border-cardiff-red flex items-center gap-2" data-bookmark-program='${JSON.stringify(d)}'>
                         <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
                         </svg>
