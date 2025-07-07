@@ -25,7 +25,7 @@ function renderBookmarks() {
                 ${new Date(program.start_time).toLocaleTimeString('en-GB')} - ${new Date(program.end_time).toLocaleTimeString('en-GB')}
               </p>
               <p class="text-sm text-gray-600">Location: ${program.location_title}</p>
-              <button class="text-red-600 text-sm font-medium" data-remove-bookmark="${program.title}">Remove Bookmark</button>
+              <button class="text-red-600 text-sm font-medium" data-remove-bookmark="${program.title}" aria-label="Remove bookmark for ${program.title}">Remove Bookmark</button>
             </div>
           </li>
         `).join('')}
@@ -80,13 +80,14 @@ function renderOpenDay(data: any) {
           </div> 
           <div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <div class="grid w-full max-w-lg grid-cols-1 lg:max-w-xs"> 
-              <input type="search" id="search" name="search" class="col-start-1 row-start-1 block w-full rounded-md bg-white py-1.5 pr-3 pl-10 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-cardiff-red sm:text-sm/6" placeholder="Search..." /> 
-              <svg class="pointer-events-none col-start-1 row-start-1 ml-3 size-5 self-center text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon"> 
+              <label for="search" class="sr-only">Search</label>
+              <input type="search" id="search" name="search" class="col-start-1 row-start-1 block w-full rounded-md bg-white py-1.5 pr-3 pl-10 text-base text-gray-900 outline-1 -outline-offset-1 outline-cardiff-red placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-cardiff-red sm:text-sm/6" placeholder="Search..." /> 
+              <svg class="pointer-events-none col-start-1 row-start-1 ml-3 size-5 self-center text-cardiff-red" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon"> 
                 <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1-12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" /> 
               </svg> 
             </div> 
             <div id="view-bookmarks">
-              <button class="relative shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none ml-4 z-10">
+              <button class="relative shrink-0 rounded-full bg-white p-1 text-cardiff-red hover:text-red-700 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none ml-4 z-10" aria-label="View bookmarks">
                 <span class="sr-only">View bookmarks</span>
                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3a.75.75 0 0 0-.75.75v16.5a.25.25 0 0 0 .4.2L12 17.25l5.6 3.2a.25.25 0 0 0 .4-.2V3.75a.75.75 0 0 0-.75-.75H6.75z" />
@@ -125,11 +126,11 @@ function renderOpenDay(data: any) {
         </div>
       </div>
     </div>
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
         <div id="modal-header" class="m-8 flex justify-between items-center mb-4"> <!-- Sticky header -->
           <h2 id="modal-title" class="text-xl font-bold text-center flex-1"></h2>
-          <button id="close-modal" class="text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none">
+          <button id="close-modal" class="text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none" aria-label="Close modal">
             <span class="sr-only">Close modal</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -184,8 +185,8 @@ function renderOpenDay(data: any) {
                     <div class="mt-4 hidden text-sm text-gray-600 program-details">
                       <p>${program.description || 'No description available.'}</p>
                       <div class="bookmark-action mt-4 flex items-center gap-2">
-                        <button class="bookmark-button text-cardiff-red text-sm font-medium hover:border-cardiff-red flex items-center gap-2" data-bookmark-program="${encodeURIComponent(JSON.stringify(program))}">
-                          <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button class="bookmark-button text-cardiff-red text-sm font-medium hover:border-cardiff-red flex items-center gap-2" data-bookmark-program="${encodeURIComponent(JSON.stringify(program))}" aria-label="Bookmark this program">
+                          <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
                           </svg>
                           Bookmark
