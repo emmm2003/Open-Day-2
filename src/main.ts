@@ -186,8 +186,8 @@ function renderOpenDay(data: any) {
                       <p>${program.description || 'No description available.'}</p>
                       <div class="bookmark-action mt-4 flex items-center gap-2">
                         <button class="bookmark-button text-cardiff-red text-sm font-medium hover:border-cardiff-red flex items-center gap-2" data-bookmark-program="${encodeURIComponent(JSON.stringify(program))}" aria-label="Bookmark this program">
-                          <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
+                          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3a.75.75 0 0 0-.75.75v16.5a.25.25 0 0 0 .4.2L12 17.25l5.6 3.2a.25.25 0 0 0 .4-.2V3.75a.75.75 0 0 0-.75-.75H6.75z" />
                           </svg>
                           Bookmark
                         </button>
