@@ -85,12 +85,14 @@ function renderOpenDay(data: any) {
                 <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1-12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" /> 
               </svg> 
             </div> 
-            <button id="view-bookmarks" class="relative shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none ml-4">
-              <span class="sr-only">View bookmarks</span>
-              <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3a.75.75 0 0 0-.75.75v16.5a.25.25 0 0 0 .4.2L12 17.25l5.6 3.2a.25.25 0 0 0 .4-.2V3.75a.75.75 0 0 0-.75-.75H6.75z" />
-              </svg>
-            </button>
+            <div id="view-bookmarks">
+              <button class="relative shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none ml-4 z-10">
+                <span class="sr-only">View bookmarks</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3a.75.75 0 0 0-.75.75v16.5a.25.25 0 0 0 .4.2L12 17.25l5.6 3.2a.25.25 0 0 0 .4-.2V3.75a.75.75 0 0 0-.75-.75H6.75z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div> 
       </div> 
@@ -181,12 +183,14 @@ function renderOpenDay(data: any) {
                     <h3 class="text-lg font-semibold text-cardiff-red">${program.title}</h3>
                     <div class="mt-4 hidden text-sm text-gray-600 program-details">
                       <p>${program.description || 'No description available.'}</p>
-                      <button class="bookmark-button text-cardiff-red text-sm font-medium mt-4 hover:border-cardiff-red flex items-center gap-2" data-bookmark-program='${JSON.stringify(program)}'>
-                        <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
-                        </svg>
-                        Bookmark
-                      </button>
+                      <div class="bookmark-action mt-4 flex items-center gap-2">
+                        <button class="bookmark-button text-cardiff-red text-sm font-medium hover:border-cardiff-red flex items-center gap-2" data-bookmark-program="${encodeURIComponent(JSON.stringify(program))}">
+                          <svg class="h-5 w-5 text-cardiff-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-5 7 5V3z" />
+                          </svg>
+                          Bookmark
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -215,21 +219,28 @@ function renderOpenDay(data: any) {
       }
     }
 
-    if (target.matches('button[data-bookmark-program]')) {
-      const programData = JSON.parse(target.getAttribute('data-bookmark-program')!);
-      const locations = await loadLocations();
-      const locationTitle = getLocationTitleById(programData.location_id, locations);
+    if (target.closest('.bookmark-action')) {
+      const button = target.closest('button[data-bookmark-program]');
+      if (button) {
+        const programData = JSON.parse(decodeURIComponent(button.getAttribute('data-bookmark-program')!));
+        const locations = await loadLocations();
+        const locationTitle = getLocationTitleById(programData.location_id, locations);
 
-      const bookmark = {
-        ...programData,
-        location_title: locationTitle,
-      };
+        const bookmark = {
+          ...programData,
+          location_title: locationTitle,
+        };
 
-      if (!bookmarks.some((bookmark) => bookmark.title === programData.title)) {
-        bookmarks.push(bookmark);
-        alert(`Program "${programData.title}" bookmarked!`);
-      } else {
-        alert(`Program "${programData.title}" is already bookmarked.`);
+        if (!bookmarks.some((b) =>
+          b.title === programData.title &&
+          b.start_time === programData.start_time &&
+          b.location_id === programData.location_id
+        )) {
+          bookmarks.push(bookmark);
+          alert(`Program "${programData.title}" bookmarked!`);
+        } else {
+          alert(`Program "${programData.title}" is already bookmarked.`);
+        }
       }
     }
 
@@ -242,7 +253,7 @@ function renderOpenDay(data: any) {
       }
     }
 
-    if (target.matches('button#view-bookmarks')) {
+    if (target.closest('#view-bookmarks')) {
       renderBookmarks();
     }
   });
