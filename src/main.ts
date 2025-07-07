@@ -106,7 +106,7 @@ function renderOpenDay(data: any) {
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center items-center w-full">
             <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer">
-              <img class="size-24 ring-4 ring-white sm:size-32" src="${cuLogo}" alt="" />
+              <img class="size-24 ring-4 ring-white sm:size-32" src="${cuLogo}" alt="Visit the Cardiff University Homepage" />
             </a>
           </div>
         </div>
@@ -128,8 +128,8 @@ function renderOpenDay(data: any) {
     </div>
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-        <div id="modal-header" class="m-8 flex justify-between items-center mb-4"> <!-- Sticky header -->
-          <h2 id="modal-title" class="text-xl font-bold text-center flex-1"></h2>
+        <div id="modal-header" class="m-8 flex justify-between items-center mb-4">
+          <h2 id="modal-title" class="text-xl font-bold text-center flex-1">Loading ...</h2>
           <button id="close-modal" class="text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none" aria-label="Close modal">
             <span class="sr-only">Close modal</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
