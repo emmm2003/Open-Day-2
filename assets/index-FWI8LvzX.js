@@ -1,6 +1,6 @@
-(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const t of i.addedNodes)t.tagName==="LINK"&&t.rel==="modulepreload"&&n(t)}).observe(document,{childList:!0,subtree:!0});function l(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function n(s){if(s.ep)return;s.ep=!0;const i=l(s);fetch(s.href,i)}})();const p="/Open-Day-2/cu-logo.svg";async function y(){return await(await fetch("/Open-Day-2/api/OpenDay.json")).json()}const u=[];function x(){const a=document.getElementById("modal-title"),e=document.getElementById("modal-programs");a.textContent="Bookmarked Programs",e.innerHTML=u.length>0?`
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))n(i);new MutationObserver(i=>{for(const s of i)if(s.type==="childList")for(const t of s.addedNodes)t.tagName==="LINK"&&t.rel==="modulepreload"&&n(t)}).observe(document,{childList:!0,subtree:!0});function l(i){const s={};return i.integrity&&(s.integrity=i.integrity),i.referrerPolicy&&(s.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?s.credentials="include":i.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function n(i){if(i.ep)return;i.ep=!0;const s=l(i);fetch(i.href,s)}})();const p="/Open-Day-2/cu-logo.svg";async function y(){return await(await fetch("/Open-Day-2/api/OpenDay.json")).json()}const f=[];function x(){const a=document.getElementById("modal-title"),e=document.getElementById("modal-programs");a.textContent="Bookmarked Programs",e.innerHTML=f.length>0?`
       <ul role="list" class="divide-y divide-gray-200">
-        ${u.map(n=>`
+        ${f.map(n=>`
           <li class="px-4 py-4 sm:px-0">
             <div class="flex flex-col gap-2">
               <h3 class="text-lg font-semibold text-cardiff-red">${n.title}</h3>
@@ -50,7 +50,7 @@
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center items-center w-full">
             <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer">
-              <img class="size-24 ring-4 ring-white sm:size-32" src="${p}" alt="" />
+              <img class="size-24 ring-4 ring-white sm:size-32" src="${p}" alt="Visit the Cardiff University Homepage" />
             </a>
           </div>
         </div>
@@ -72,8 +72,8 @@
     </div>
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-        <div id="modal-header" class="m-8 flex justify-between items-center mb-4"> <!-- Sticky header -->
-          <h2 id="modal-title" class="text-xl font-bold text-center flex-1"></h2>
+        <div id="modal-header" class="m-8 flex justify-between items-center mb-4">
+          <h2 id="modal-title" class="text-xl font-bold text-center flex-1">Loading ...</h2>
           <button id="close-modal" class="text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-cardiff-red focus:ring-offset-2 focus:outline-none" aria-label="Close modal">
             <span class="sr-only">Close modal</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -84,7 +84,7 @@
         <div id="modal-programs" class="m-8 text-gray-700"></div>
       </div>
     </div>
-  `,document.querySelector("#search").addEventListener("input",i=>{const t=i.target.value.toLowerCase(),r=a.topics.filter(c=>c.name.toLowerCase().includes(t)),o=document.querySelector("#topics-container");r.length>0?o.innerHTML=b(r):o.innerHTML='<p class="text-gray-600 text-center mt-4 mb-8">No topics match your search. Please try a different keyword.</p>'}),document.addEventListener("click",async i=>{const t=i.target;if(t.matches("button[data-topic-name]")){const r=t.getAttribute("data-topic-name"),o=document.getElementById("modal"),c=document.getElementById("modal-title"),f=document.getElementById("modal-programs"),g=await v(),m=a.topics.find(d=>d.name===r);c.textContent=`${r} Events`,f.innerHTML=m.programs&&m.programs.length>0?`
+  `,document.querySelector("#search").addEventListener("input",s=>{const t=s.target.value.toLowerCase(),r=a.topics.filter(c=>c.name.toLowerCase().includes(t)),o=document.querySelector("#topics-container");r.length>0?o.innerHTML=b(r):o.innerHTML='<p class="text-gray-600 text-center mt-4 mb-8">No topics match your search. Please try a different keyword.</p>'}),document.addEventListener("click",async s=>{const t=s.target;if(t.matches("button[data-topic-name]")){const r=t.getAttribute("data-topic-name"),o=document.getElementById("modal"),c=document.getElementById("modal-title"),u=document.getElementById("modal-programs"),g=await v(),m=a.topics.find(d=>d.name===r);c.textContent=`${r} Events`,u.innerHTML=m.programs&&m.programs.length>0?`
           <ul role="list" class="divide-y divide-gray-200">
             ${m.programs.map(d=>`
               <li class="px-4 py-4 sm:px-0">
@@ -111,7 +111,7 @@
               </li>
             `).join("")}
           </ul>
-        `:"<p>No programs available for this topic.</p>",o.classList.remove("hidden")}if(t.matches("button[data-toggle-details]")){const r=t.closest("li")?.querySelector(".program-details"),o=t.closest("li")?.querySelector(".bookmark-button");r&&(r.classList.toggle("hidden"),t.textContent=r.classList.contains("hidden")?"+":"-",o&&o.classList.toggle("hidden",r.classList.contains("hidden")),t.classList.toggle("active",!r.classList.contains("hidden")))}if(t.closest(".bookmark-action")){const r=t.closest("button[data-bookmark-program]");if(r){const o=JSON.parse(decodeURIComponent(r.getAttribute("data-bookmark-program"))),c=await v(),f=h(o.location_id,c),g={...o,location_title:f};u.some(m=>m.title===o.title&&m.start_time===o.start_time&&m.location_id===o.location_id)?alert(`Program "${o.title}" is already bookmarked.`):(u.push(g),alert(`Program "${o.title}" bookmarked!`))}}if(t.matches("button[data-remove-bookmark]")){const r=t.getAttribute("data-remove-bookmark"),o=u.findIndex(c=>c.title===r);o!==-1&&(u.splice(o,1),x())}t.closest("#view-bookmarks")&&x()}),document.getElementById("close-modal").addEventListener("click",()=>{document.getElementById("modal").classList.add("hidden")})}function b(a){return a.map(e=>e&&e.name?`
+        `:"<p>No programs available for this topic.</p>",o.classList.remove("hidden")}if(t.matches("button[data-toggle-details]")){const r=t.closest("li")?.querySelector(".program-details"),o=t.closest("li")?.querySelector(".bookmark-button");r&&(r.classList.toggle("hidden"),t.textContent=r.classList.contains("hidden")?"+":"-",o&&o.classList.toggle("hidden",r.classList.contains("hidden")),t.classList.toggle("active",!r.classList.contains("hidden")))}if(t.closest(".bookmark-action")){const r=t.closest("button[data-bookmark-program]");if(r){const o=JSON.parse(decodeURIComponent(r.getAttribute("data-bookmark-program"))),c=await v(),u=h(o.location_id,c),g={...o,location_title:u};f.some(m=>m.title===o.title&&m.start_time===o.start_time&&m.location_id===o.location_id)?alert(`Program "${o.title}" is already bookmarked.`):(f.push(g),alert(`Program "${o.title}" bookmarked!`))}}if(t.matches("button[data-remove-bookmark]")){const r=t.getAttribute("data-remove-bookmark"),o=f.findIndex(c=>c.title===r);o!==-1&&(f.splice(o,1),x())}t.closest("#view-bookmarks")&&x()}),document.getElementById("close-modal").addEventListener("click",()=>{document.getElementById("modal").classList.add("hidden")})}function b(a){return a.map(e=>e&&e.name?`
     <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col">
       <div class="relative w-full overflow-hidden rounded-lg">
         <img src="${e.cover_image||p}" alt="${e.name}" class="w-full h-40 object-cover" />
